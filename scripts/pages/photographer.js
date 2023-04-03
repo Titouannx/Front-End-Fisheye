@@ -37,16 +37,32 @@ async function getPhotographerMedia(id) {
     return photographerMedia;
 }
 
-init();
+async function displayData(medias) {
+    const photographerPictures = document.createElement("section");
+    photographerPictures.setAttribute("class", "photographer-pictures");
+    const main = document.querySelector("main");
+    main.appendChild(photographerPictures);
+
+    medias.forEach((media) => {
+        const mediaModel = mediaFactory(media);
+        const mediaDOM = mediaModel.getMediaDOM();
+        photographerPictures.appendChild(mediaDOM);
+        console.log(photographerFactory(media))
+    });
+}
 
 async function init() {
     const id = getId();
     const photographer = await getPhotographer(id);
     photographer.media = await getPhotographerMedia(id);
     console.log(photographer);
+    console.log(photographer.media);
     displayPhotographerInfos(photographer);
-    displayPhotographerPictures(photographer);
+    displayData(photographer.media)
+    displayPriceAndLikes(photographer)
 }
+
+init();
 
 function displayPhotographerInfos(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
@@ -69,44 +85,50 @@ function displayPhotographerInfos(photographer) {
     photographerHeader.appendChild(photographerPicture);
 }
 
-//create a new section containing the photographer's pictures
-function displayPhotographerPictures(photographer) {
-    const photographerPictures = document.createElement("section");
-    photographerPictures.setAttribute("class", "photographer-pictures");
+//on click on a picture, display the modal of a carousel
+function displayCarousel() {
+    const pictures = document.querySelectorAll(".picture");
+    pictures.forEach((picture) => {
+        picture.addEventListener("click", () => {
+            const modal = document.querySelector(".modal");
+            modal.style.display = "block";
+            const carousel = document.querySelector(".carousel");
+            carousel.style.display = "block";
+            const carouselImage = document.querySelector(".carousel-image");
+            carouselImage.setAttribute("src", picture.getAttribute("src"));
+        })
+    })
+}
+
+function displayPriceAndLikes(photographer) {
+    const photographerPriceAndLikes = document.createElement("div");
+    photographerPriceAndLikes.setAttribute("class", "photographer-price-and-likes");
+    //two divs, right and left
+    const photographerPriceAndLikesLeft = document.createElement("div");
+    photographerPriceAndLikesLeft.setAttribute("class", "photographer-price-and-likes-left");
+    const photographerPriceAndLikesRight = document.createElement("div");
+    photographerPriceAndLikesRight.setAttribute("class", "photographer-price-and-likes-right");
+    photographerPriceAndLikes.appendChild(photographerPriceAndLikesLeft);
+    photographerPriceAndLikes.appendChild(photographerPriceAndLikesRight);
     const main = document.querySelector("main");
-    main.appendChild(photographerPictures);
-    photographer.media.forEach((media) => {
-        const picture = document.createElement("div");
-        picture.setAttribute("class", "picture");
-        const pictureImg = document.createElement("img");
-        pictureImg.setAttribute("src", `assets/images/${media.image}`);
-        pictureImg.setAttribute("alt", `Photo "${media.title}" de ${photographer.name}`);
-        picture.appendChild(pictureImg);
-        const pictureInfos = document.createElement("div");
-        pictureInfos.setAttribute("class", "picture-infos");
+    main.appendChild(photographerPriceAndLikes);
+    const photographerPrice = document.createElement("p");
+    photographerPrice.textContent = `${photographer.price}€/jour`;
+    const photographerLikes = document.createElement("p");
+    photographerLikes.textContent = `${getTotalLikes(photographer.media)} likes`;
+    const pictureLikesImg = document.createElement("img");
+    pictureLikesImg.setAttribute("src", "assets/icons/heart.svg");
+    pictureLikesImg.setAttribute("alt", "Like");
+    pictureLikesImg.setAttribute("class", "picture-likes-img");
+    photographerPriceAndLikesLeft.appendChild(photographerLikes);
+    photographerPriceAndLikesLeft.appendChild(pictureLikesImg);
+    photographerPriceAndLikesRight.appendChild(photographerPrice);
+}
 
-        const leftDesc = document.createElement("div");
-        leftDesc.setAttribute("class", "leftDesc");
-        const rightDesc = document.createElement("div");
-        rightDesc.setAttribute("class", "rightDesc");
-
-        const pictureTitle = document.createElement("h3");
-        pictureTitle.textContent = media.title;
-        leftDesc.appendChild(pictureTitle);
-
-        const pictureLikes = document.createElement("p");
-        pictureLikes.textContent = media.likes;
-        rightDesc.appendChild(pictureLikes);
-        const pictureLikesImg = document.createElement("img");
-        pictureLikesImg.setAttribute("src", "assets/icons/heart.svg");
-        pictureLikesImg.setAttribute("alt", "Like");
-        pictureLikesImg.setAttribute("class", "picture-likes-img");
-        rightDesc.appendChild(pictureLikesImg);
-
-        pictureInfos.appendChild(leftDesc);
-        pictureInfos.appendChild(rightDesc);
-
-        picture.appendChild(pictureInfos);
-        photographerPictures.appendChild(picture);
-    });
+function getTotalLikes(media) {
+    let totalLikes = 0;
+    media.forEach((media) => {
+        totalLikes += media.likes;
+    })
+    return totalLikes;
 }
