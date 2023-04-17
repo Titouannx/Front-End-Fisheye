@@ -83,6 +83,12 @@ function displayPhotographerInfos(photographer) {
     photographerPicture.setAttribute("alt", `Photo de ${photographer.name}`);
     photographerPicture.setAttribute("class", "photographer-picture");
     photographerHeader.appendChild(photographerPicture);
+
+    //display in the contact modal name of the photographer
+    const modalHeader = document.querySelector(".modal_header");
+    const modalTitle = document.createElement("h2");
+    modalTitle.textContent = "Contactez-moi" + " " + photographer.name;
+    modalHeader.insertBefore(modalTitle, modalHeader.firstChild);
 }
 
 //on click on a picture, display the modal of a carousel
@@ -132,3 +138,56 @@ function getTotalLikes(media) {
     })
     return totalLikes;
 }
+
+const button = document.getElementById('sort-by-btn');
+const optionsList = document.getElementById('sort-by-select');
+
+button.addEventListener('click', function () {
+    optionsList.classList.toggle('open');
+    document.getElementsByClassName("icon-arrow-down")[0].classList.toggle("icon-arrow-up");
+  });  
+
+//Ajouter un EventListener pour chaque option de tri
+optionsList.addEventListener("click", async (e) => {
+    if (e.target.tagName === "LI") {
+        const id = getId();
+        const photographer = await getPhotographer(id);
+        photographer.media = await getPhotographerMedia(id);
+        medias = photographer.media;
+      // Mettre à jour le texte du bouton avec la nouvelle option sélectionnée
+      const optionText = e.target.textContent;
+      button.textContent = optionText;
+      let iconArrow = document.createElement("img");
+        iconArrow.setAttribute("src", "assets/icons/arrow.svg");
+        iconArrow.setAttribute("alt", 'Flèche menu déroulant "Trier par"');
+        iconArrow.setAttribute("class", "icon-arrow-down");
+        button.appendChild(iconArrow);
+      optionsList.classList.remove("open");
+  
+      // Récupérer la valeur de l'option sélectionnée
+      let value = optionText.toLowerCase();
+  
+      // Trier les médias selon la valeur de l'option sélectionnée
+      let sortedMedias = [];
+      if (value === "popularité") {
+        sortedMedias = medias.sort((a, b) => b.likes - a.likes);
+      } else if (value === "date") {
+        sortedMedias = medias.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+      } else if (value === "titre") {
+        sortedMedias = medias.sort((a, b) => a.title.localeCompare(b.title));
+      }
+  
+      // Supprimer tous les médias existants de la section
+      const photographerPictures = document.querySelector(".photographer-pictures");
+      photographerPictures.innerHTML = "";
+  
+      // Ajouter chaque élément de média trié à la section
+      sortedMedias.forEach((media) => {
+        const mediaModel = mediaFactory(media);
+        const mediaDOM = mediaModel.getMediaDOM();
+        photographerPictures.appendChild(mediaDOM);
+      });
+    }
+  });

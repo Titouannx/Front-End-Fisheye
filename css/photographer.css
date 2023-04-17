@@ -2,6 +2,17 @@
     display: none;
 }
 
+#contact_modal .modal {
+    margin-top: 150px;
+    gap: 60px;
+}
+
+#contact_modal .modal_header h2 {
+    margin-top: 100px;
+    width: 550px;
+    text-align: left;
+}
+
 .photographer-price-and-likes{
     position: fixed;
     bottom: 0;
@@ -113,7 +124,7 @@ main .photographer-pictures .video .picture-likes-img{
 main .photographer-pictures .video .overlay-play{
     width: 150px;
     height: 150px;
-    padding: 6%;
+    padding: 30%;
     position: absolute;
 }
 
@@ -161,6 +172,11 @@ main .photographer-pictures .video .picture-infos{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+main .photographer-pictures .video{
+    position: relative;
+    z-index: -1;
 }
 
 .modal {
@@ -215,4 +231,96 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+.sort-by{
+    margin-top: 25px;
+    margin-left: 100px;
+    display: flex;
+    gap: 20px;
+}
+
+.sort-by label {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#sort-by-btn {
+  position: relative;
+  background-color: #901C1C;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#sort-by-btn img{
+    filter: invert(100%);
+    width: 20px;
+    padding-left: 10px;
+    position: relative;
+    top: 5px;
+  }
+
+#sort-by-btn .icon-arrow-down {
+    transform: rotate(0deg);
+    padding-left: 10px;
+    padding-right: 0px;
+    position: relative;
+    top: 5px;
+}
+
+#sort-by-btn .icon-arrow-up {
+    transform: rotate(180deg);
+    padding-left: 0px;
+    padding-right: 10px;
+    position: relative;
+    top: 5px;
+}
+
+
+#sort-by-btn:hover {
+    background-color: #b61e1e;
+}
+
+#sort-by-select {
+    margin-top: -1px;
+    margin-left: 161px;
+    position: absolute;
+    width: fit-content;
+    left: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+}
+  
+#sort-by-select.open {
+    max-height: 200px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#sort-by-select li {
+    background-color: #901C1C;
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-bottom: 1px solid white;
+    cursor: pointer;
+}
+
+#sort-by-select li:hover {
+    background-color: #b61e1e;
+}
+
+#sort-by-select li:last-child {
+  border-bottom: none;
 }

@@ -17,14 +17,26 @@
       <div class="photograph-header">
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
+      <div class="sort-by">
+        <label for="sort-by-select">Trier par:</label>
+        <div class="sort-by-dropdown">
+          <button id="sort-by-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="sort-by-select">Popularité
+            <img src="assets/icons/arrow.svg" alt='Flèche menu déroulant "Trier par"' class="icon-arrow-down"/>
+          </button>
+          <ul id="sort-by-select" role="listbox" aria-labelledby="sort-by-select" aria-hidden="true">
+            <li class="option" role="option" tabindex="0" data-sort-by="likes">Popularité</li>
+            <li class="option" role="option" tabindex="0" data-sort-by="title">Titre</li>
+            <li class="option" role="option" tabindex="0" data-sort-by="date">Date</li>
+          </ul>
+        </div>
+      </div>
     </main>
     <div id="contact_modal">
 			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
+				<header class="modal_header">
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
-				<form>
+				<form action="javascript:submitForm();" id="contact_form">
 					<div>
 						<label for="prenom">Prénom</label>
             <input type="text" id="prenom" name="prenom" required>
@@ -35,7 +47,7 @@
             <label for="message">Votre message</label>
             <textarea id="message" name="message" required></textarea>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <button class="contact_button" type="submit" onsubmit="">Envoyer</button>
 				</form>
 			</div>
 		</div>
