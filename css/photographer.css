@@ -328,6 +328,9 @@ form input {
   border-bottom: none;
 }
 
+.picture-likes-img{
+    cursor: pointer;
+}
   
 .picture-likes-img.liked {
     filter:contrast(175%)
