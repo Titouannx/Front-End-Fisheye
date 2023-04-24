@@ -112,13 +112,13 @@ main .photographer-pictures {
 main .photographer-pictures .picture .picture-likes-img{
     width: 30px;
     height: 30px;
-    margin: 24px 5px;
+    margin: 20px 5px;
 }
 
 main .photographer-pictures .video .picture-likes-img{
     width: 30px;
     height: 30px;
-    margin: 24px 5px;
+    margin: 20px 5px;
 }
 
 main .photographer-pictures .video .overlay-play{
@@ -174,11 +174,14 @@ main .photographer-pictures .video .picture-infos{
     align-items: center;
 }
 
-main .photographer-pictures .video{
+.media {
     position: relative;
-    z-index: -1;
 }
-
+  
+#sort-by-select{
+    z-index: 1;
+}
+  
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
@@ -323,4 +326,9 @@ form input {
 
 #sort-by-select li:last-child {
   border-bottom: none;
+}
+
+  
+.picture-likes-img.liked {
+    filter:contrast(175%)
 }

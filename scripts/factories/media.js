@@ -37,6 +37,7 @@ function mediaFactory(data){
 
         const pictureLikes = document.createElement("p");
         pictureLikes.textContent = likes;
+        pictureLikes.setAttribute("class", "picture-likes");
         rightDesc.appendChild(pictureLikes);
         const pictureLikesImg = document.createElement("img");
         pictureLikesImg.setAttribute("src", "assets/icons/heart.svg");

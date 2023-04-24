@@ -58,11 +58,37 @@ async function init() {
     console.log(photographer);
     console.log(photographer.media);
     displayPhotographerInfos(photographer);
-    displayData(photographer.media)
-    displayPriceAndLikes(photographer)
+    displayData(photographer.media);
+    displayPriceAndLikes(photographer);
+    gestionLikes(photographer.media);
 }
 
 init();
+
+function gestionLikes(medias) {
+  const mediaList = document.querySelectorAll(".media");
+  let totalLikesCount = getTotalLikes(medias);
+
+  mediaList.forEach(media => {
+    const likesCount = media.querySelector(".picture-likes");
+    const heartIcon = media.querySelector(".picture-likes-img");
+    
+    heartIcon.addEventListener("mousedown", () => {
+      let currentLikesCount = parseInt(likesCount.innerText);
+      if (heartIcon.classList.contains("liked")) {
+        currentLikesCount--;
+        totalLikesCount--;
+      } else {
+        currentLikesCount++;
+        totalLikesCount++;
+      }
+      likesCount.innerText = currentLikesCount;
+      heartIcon.classList.toggle("liked");
+      const photographerLikes = document.querySelector(".photographer-price-and-likes .photographer-price-and-likes-left p");
+      photographerLikes.textContent = `${totalLikesCount} likes`;
+    });
+  });
+}
 
 function displayPhotographerInfos(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
@@ -89,21 +115,6 @@ function displayPhotographerInfos(photographer) {
     const modalTitle = document.createElement("h2");
     modalTitle.textContent = "Contactez-moi" + " " + photographer.name;
     modalHeader.insertBefore(modalTitle, modalHeader.firstChild);
-}
-
-//on click on a picture, display the modal of a carousel
-function displayCarousel() {
-    const pictures = document.querySelectorAll(".picture");
-    pictures.forEach((picture) => {
-        picture.addEventListener("click", () => {
-            const modal = document.querySelector(".modal");
-            modal.style.display = "block";
-            const carousel = document.querySelector(".carousel");
-            carousel.style.display = "block";
-            const carouselImage = document.querySelector(".carousel-image");
-            carouselImage.setAttribute("src", picture.getAttribute("src"));
-        })
-    })
 }
 
 function displayPriceAndLikes(photographer) {
@@ -189,5 +200,9 @@ optionsList.addEventListener("click", async (e) => {
         const mediaDOM = mediaModel.getMediaDOM();
         photographerPictures.appendChild(mediaDOM);
       });
+      gestionLikes(photographer.media);
     }
   });
+
+  
+
