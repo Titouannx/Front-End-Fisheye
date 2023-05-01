@@ -12,12 +12,14 @@ function mediaFactory(data){
             picture.setAttribute("class", "picture");
             pictureImg.setAttribute("src", `assets/images/${image}`);
             pictureImg.setAttribute("alt", "Photo de " + title);
+            pictureImg.setAttribute("class", "mediaMini");
             picture.appendChild(pictureImg);
         } else if(video){
             const overlayPlay = document.createElement( 'img' );
             picture.setAttribute("class", "video");
             pictureVideo.setAttribute("src", `assets/images/${video}`);
             pictureVideo.setAttribute("alt", "Vidéo de " + title);
+            pictureVideo.setAttribute("class", "mediaMini");
             overlayPlay.setAttribute("src", `assets/icons/play-button.png`);
             overlayPlay.setAttribute("class", "overlay-play");
             picture.appendChild(overlayPlay);

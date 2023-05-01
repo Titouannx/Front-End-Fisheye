@@ -47,7 +47,6 @@ async function displayData(medias) {
         const mediaModel = mediaFactory(media);
         const mediaDOM = mediaModel.getMediaDOM();
         photographerPictures.appendChild(mediaDOM);
-        console.log(photographerFactory(media))
     });
 }
 
@@ -55,12 +54,11 @@ async function init() {
     const id = getId();
     const photographer = await getPhotographer(id);
     photographer.media = await getPhotographerMedia(id);
-    console.log(photographer);
-    console.log(photographer.media);
     displayPhotographerInfos(photographer);
     displayData(photographer.media);
     displayPriceAndLikes(photographer);
     gestionLikes(photographer.media);
+    gestionLightbox(photographer.media);
 }
 
 init();
@@ -201,8 +199,132 @@ optionsList.addEventListener("click", async (e) => {
         photographerPictures.appendChild(mediaDOM);
       });
       gestionLikes(photographer.media);
+      gestionLightbox(photographer.media);
     }
   });
 
-  
+  function gestionLightbox(medias) {
+    // Select all media elements
+    const mediaElements = document.querySelectorAll(".media");
+    const mediaItems = document.querySelectorAll(".mediaMini");
 
+    // Select the lightbox and its content
+    const lightbox = document.getElementById("lightbox");
+    const lightboxContent = document.querySelector(".lightbox-content");
+
+    // Select the media container, previous and next buttons
+    const mediaContainer = document.querySelector(".media-container");
+    let prevButton = document.getElementById("prev");
+    let nextButton = document.getElementById("next");
+
+    // Create a variable to keep track of the current media index
+    let currentMediaIndex;
+
+    // Add click event listener to each media element
+    mediaElements.forEach((media, index) => {
+      const mediaPicOrVid = media.querySelector(".mediaMini");
+      mediaPicOrVid.addEventListener("click", () => {
+        // Display the lightbox
+        lightbox.style.display = "flex";
+
+        // Set the current media index
+        currentMediaIndex = index;
+
+        // Add the clicked media to the lightbox content
+        displayMedia(index);
+
+    });
+    });
+
+    function showVideosControls(boolean) {
+        const video = lightboxContent.querySelector("video");
+        if (boolean) {
+          video.controls = true;
+        } else {
+          video.controls = false;
+        }
+      }
+
+    function displayMedia(index) {
+        // Set the current media index
+        currentMediaIndex = index;
+      
+        // Remove the current media element from the lightbox content
+        lightboxContent.innerHTML = "";
+      
+        // Create a new media element and add it to the lightbox content
+        const newMedia = mediaItems[currentMediaIndex].cloneNode(true);
+        lightboxContent.innerHTML = "<span class='close'>&times;</span>"
+        lightboxContent.appendChild(newMedia);
+        const divPrevNext = document.createElement("div");
+        divPrevNext.setAttribute("class", "prev-next-buttons");
+        lightboxContent.appendChild(divPrevNext);
+        prevButton = document.createElement("button");
+        prevButton.setAttribute("id", "prev");
+        prevButton.setAttribute("class", "prev");
+        prevButton.innerHTML = "&lt;";
+        nextButton = document.createElement("button");
+        nextButton.setAttribute("id", "next");
+        nextButton.setAttribute("class", "next");
+        nextButton.innerHTML = "&gt;";
+        divPrevNext.appendChild(prevButton);
+        divPrevNext.appendChild(nextButton);
+        gestionBtnLightBox();
+        if(newMedia.tagName === "VIDEO"){
+          showVideosControls(true);
+        }
+      }
+
+  function gestionBtnLightBox(){
+    // Add click event listener to previous button
+    prevButton.addEventListener("click", () => {
+      // Decrement the current media index
+      currentMediaIndex--;
+
+      if (currentMediaIndex < 0) {
+          currentMediaIndex = mediaElements.length - 1;
+      }
+
+      // Display the new media
+      displayMedia(currentMediaIndex);
+      });
+
+      // Add click event listener to next button
+      nextButton.addEventListener("click", () => {
+      // Increment the current media index
+      currentMediaIndex++;
+
+      // If the current media index is greater than the last media index, set it to 0
+      if (currentMediaIndex >= mediaElements.length) {
+          currentMediaIndex = 0;
+      }
+
+      // Display the new media
+      displayMedia(currentMediaIndex);
+      });
+
+      // Add keydown event listener to document
+      document.addEventListener("keydown", (event) => {
+      // If left arrow key is pressed, go to previous media
+      if (event.keyCode === 37) {
+          prevButton.click();
+      }
+
+      // If right arrow key is pressed, go to next media
+      if (event.keyCode === 39) {
+          nextButton.click();
+      }
+      });
+
+      // Add click event listener to close button
+      const closeButton = document.querySelector(".close");
+      closeButton.addEventListener("click", () => {
+
+      // Hide the lightbox
+      lightbox.style.display = "none";
+      showVideosControls(false)
+    });
+    }
+    gestionBtnLightBox()
+
+  }
