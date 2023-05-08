@@ -59,6 +59,7 @@ async function init() {
     displayPriceAndLikes(photographer);
     gestionLikes(photographer.media);
     gestionLightbox(photographer.media);
+    gestionKeyboardNavigation();
 }
 
 init();
@@ -70,6 +71,25 @@ function gestionLikes(medias) {
   mediaList.forEach(media => {
     const likesCount = media.querySelector(".picture-likes");
     const heartIcon = media.querySelector(".picture-likes-img");
+
+    //on enter keypress on heart icon increase likes count
+    heartIcon.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        let currentLikesCount = parseInt(likesCount.innerText);
+        if (heartIcon.classList.contains("liked")) {
+          currentLikesCount--;
+          totalLikesCount--;
+        } else {
+          currentLikesCount++;
+          totalLikesCount++;
+        }
+        likesCount.innerText = currentLikesCount;
+        heartIcon.classList.toggle("liked");
+        const photographerLikes = document.querySelector(".photographer-price-and-likes .photographer-price-and-likes-left p");
+        photographerLikes.setAttribute("aria-label", `Nombre de likes ${totalLikesCount}`);
+        photographerLikes.textContent = `${totalLikesCount} likes`;
+      };
+    });
     
     heartIcon.addEventListener("mousedown", () => {
       let currentLikesCount = parseInt(likesCount.innerText);
@@ -83,6 +103,7 @@ function gestionLikes(medias) {
       likesCount.innerText = currentLikesCount;
       heartIcon.classList.toggle("liked");
       const photographerLikes = document.querySelector(".photographer-price-and-likes .photographer-price-and-likes-left p");
+      photographerLikes.setAttribute("aria-label", `Nombre de likes ${totalLikesCount}`);
       photographerLikes.textContent = `${totalLikesCount} likes`;
     });
   });
@@ -92,6 +113,8 @@ function displayPhotographerInfos(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
     const photographerInfos = document.createElement("div");
     photographerInfos.setAttribute("class", "photographer-infos");
+    photographerInfos.setAttribute("tabindex", "0");
+    photographerInfos.setAttribute("aria-label", `Photographe ${photographer.name} de ${photographer.city} en ${photographer.country}`);
     photographerHeader.insertBefore(photographerInfos, photographerHeader.firstChild);
     const photographerName = document.createElement("h1");
     photographerName.textContent = photographer.name;
@@ -104,6 +127,7 @@ function displayPhotographerInfos(photographer) {
     photographerInfos.appendChild(photographerTagline);
     const photographerPicture = document.createElement("img");
     photographerPicture.setAttribute("src", `assets/photographers/${photographer.portrait}`);
+    photographerPicture.setAttribute("tabindex", "0");
     photographerPicture.setAttribute("alt", `Photo de ${photographer.name}`);
     photographerPicture.setAttribute("class", "photographer-picture");
     photographerHeader.appendChild(photographerPicture);
@@ -128,10 +152,13 @@ function displayPriceAndLikes(photographer) {
     const main = document.querySelector("main");
     main.appendChild(photographerPriceAndLikes);
     const photographerPrice = document.createElement("p");
+    photographerPrice.setAttribute("tabindex", "0");
     photographerPrice.textContent = `${photographer.price}€/jour`;
     const photographerLikes = document.createElement("p");
     photographerLikes.textContent = `${getTotalLikes(photographer.media)} likes`;
     const pictureLikesImg = document.createElement("img");
+        photographerLikes.setAttribute("aria-label", `Nombre de likes ${photographerLikes.textContent}`);
+        photographerLikes.setAttribute("tabindex", "0");
     pictureLikesImg.setAttribute("src", "assets/icons/heart.svg");
     pictureLikesImg.setAttribute("alt", "Like");
     pictureLikesImg.setAttribute("class", "picture-likes-img");
@@ -150,9 +177,15 @@ function getTotalLikes(media) {
 
 const button = document.getElementById('sort-by-btn');
 const optionsList = document.getElementById('sort-by-select');
+const options = document.querySelectorAll(".option");
 
 button.addEventListener('click', function () {
     optionsList.classList.toggle('open');
+    //for each option, add an attribute tabindex to make them focusable
+    options.forEach(option => {
+        option.setAttribute("tabindex", "0");
+    });
+    //rotate the icon
     document.getElementsByClassName("icon-arrow-down")[0].classList.toggle("icon-arrow-up");
   });  
 
@@ -187,7 +220,12 @@ optionsList.addEventListener("click", async (e) => {
       } else if (value === "titre") {
         sortedMedias = medias.sort((a, b) => a.title.localeCompare(b.title));
       }
-  
+
+      //remove the attribute tabindex of the options to make them not focusable
+      options.forEach(option => {
+          option.removeAttribute("tabindex");
+      });
+
       // Supprimer tous les médias existants de la section
       const photographerPictures = document.querySelector(".photographer-pictures");
       photographerPictures.innerHTML = "";
@@ -200,8 +238,86 @@ optionsList.addEventListener("click", async (e) => {
       });
       gestionLikes(photographer.media);
       gestionLightbox(photographer.media);
+      gestionKeyboardNavigation();
     }
   });
+
+  //Listen on keyboard's inputs to interact with the page
+  function gestionKeyboardNavigation() {
+    const mediaItems = document.querySelectorAll(".mediaMini");
+    const lightbox = document.getElementById("lightbox");
+    options.forEach(option => {
+        option.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.target.click();
+            }
+        })
+    });
+    mediaItems.forEach(mediaItem => {
+        mediaItem.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.target.click();
+            }
+        })
+    });
+    lightbox.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            lightbox.style.display = "none";
+        }
+    });
+    const prevButton = document.getElementById("prev");
+    prevButton.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            prevButton.click();
+        }
+    });
+    const nextButton = document.getElementById("next");
+    nextButton.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            nextButton.click();
+        }
+    });
+    //on the lightbox, listen on the left and right arrow keys to navigate between the medias
+    document.addEventListener("keydown", (e) => {
+      if(lightbox.style.display === "flex") {
+        if (e.key === "ArrowLeft") {
+            prevButton.click();
+        }
+        if (e.key === "ArrowRight") {
+            nextButton.click();
+        }
+      }
+    });
+    //when lightbox is open, let the tab key only focus on the controls of the lightbox
+    /*
+    document.addEventListener("keydown", (e) => {
+        if (lightbox.style.display === "flex" && e.key === "Tab") {
+            e.preventDefault();
+            if (document.activeElement === document.getElementById("close")) {
+              console.log("close");
+                nextButton.focus();
+            } else if (document.activeElement === nextButton) {
+                console.log("next");
+                lightbox.getElementsByTagName("img")[0].focus();
+            } else if (document.activeElement === lightbox.getElementsByTagName("img")[0]) {
+                console.log("img");
+                prevButton.focus();
+            }
+             else if (document.activeElement === prevButton) {
+                document.getElementById("close").focus();
+                console.log("prev");
+            }
+        }
+    });
+    */
+   //when lightbox is open, disable the tab key
+    document.addEventListener("keydown", (e) => {
+        if (lightbox.style.display === "flex" && e.key === "Tab") {
+            e.preventDefault();
+        }
+    });
+}
+    
 
   function gestionLightbox(medias) {
     // Select all media elements
@@ -254,7 +370,7 @@ optionsList.addEventListener("click", async (e) => {
       
         // Create a new media element and add it to the lightbox content
         const newMedia = mediaItems[currentMediaIndex].cloneNode(true);
-        lightboxContent.innerHTML = "<span class='close'>&times;</span>"
+        lightboxContent.innerHTML = "<span tabindex='0' class='close'>&times;</span>"
         lightboxContent.appendChild(newMedia);
         const divPrevNext = document.createElement("div");
         divPrevNext.setAttribute("class", "prev-next-buttons");
@@ -263,16 +379,19 @@ optionsList.addEventListener("click", async (e) => {
         prevButton.setAttribute("id", "prev");
         prevButton.setAttribute("class", "prev");
         prevButton.innerHTML = "&lt;";
+        prevButton.setAttribute("tabindex", "0");
         nextButton = document.createElement("button");
         nextButton.setAttribute("id", "next");
         nextButton.setAttribute("class", "next");
         nextButton.innerHTML = "&gt;";
+        nextButton.setAttribute("tabindex", "0");
         divPrevNext.appendChild(prevButton);
         divPrevNext.appendChild(nextButton);
         gestionBtnLightBox();
         if(newMedia.tagName === "VIDEO"){
           showVideosControls(true);
         }
+        lightbox.getElementsByTagName("img")[0].focus();
       }
 
   function gestionBtnLightBox(){
@@ -301,19 +420,6 @@ optionsList.addEventListener("click", async (e) => {
 
       // Display the new media
       displayMedia(currentMediaIndex);
-      });
-
-      // Add keydown event listener to document
-      document.addEventListener("keydown", (event) => {
-      // If left arrow key is pressed, go to previous media
-      if (event.keyCode === 37) {
-          prevButton.click();
-      }
-
-      // If right arrow key is pressed, go to next media
-      if (event.keyCode === 39) {
-          nextButton.click();
-      }
       });
 
       // Add click event listener to close button
