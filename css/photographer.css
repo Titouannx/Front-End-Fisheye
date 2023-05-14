@@ -13,6 +13,11 @@
     text-align: left;
 }
 
+.error{
+    color: rgb(200, 15, 15);
+    font-weight: bold;
+}
+
 .photographer-price-and-likes{
     position: fixed;
     bottom: 0;

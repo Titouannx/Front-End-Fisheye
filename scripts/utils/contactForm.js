@@ -10,7 +10,6 @@ function displayModal() {
     document.getElementById("message").value = "";
 	modal.style.display = "block";
     prenom.focus();
-    console.log(prenom);
 }
 
 function gestionKeyboardNavigationModal() {
@@ -30,12 +29,42 @@ function closeModal() {
 
 // Get the form values, log them to the console, and close the modal
 function submitForm() {
-    const firstName = document.getElementById("prenom").value;
+     const firstName = document.getElementById("prenom").value;
     const lastName = document.getElementById("nom").value;
     const email = document.getElementById("email").value;
     const message = document.getElementById("message").value;
-    console.log(`Prénom : ${firstName}\nNom : ${lastName}\nEmail : ${email}\nMessage : ${message}`);
-    closeModal();
+    let isValid = true;
+    
+    // Check if inputs are valid
+    if (!checkInput(firstName, /^[a-zA-Z]+$/)) {
+        isValid = false;
+        document.getElementById("prenom-error").textContent = "Le prénom doit contenir uniquement des lettres.";
+    } else {
+        document.getElementById("prenom-error").textContent = "";
+    }
+    if (!checkInput(lastName, /^[a-zA-Z]+$/)) {
+        isValid = false;
+        document.getElementById("nom-error").textContent = "Le nom doit contenir uniquement des lettres.";
+    } else {
+        document.getElementById("nom-error").textContent = "";
+    }
+    if (!checkInput(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        isValid = false;
+        document.getElementById("email-error").textContent = "L'email doit être valide.";
+    } else {
+        document.getElementById("email-error").textContent = "";
+    }
+    if (message === "") {
+        isValid = false;
+        document.getElementById("message-error").textContent = "Le message ne peut pas être vide.";
+    } else {
+        document.getElementById("message-error").textContent = "";
+    }
+    
+    if (isValid) {
+        console.log(`Prénom : ${firstName}\nNom : ${lastName}\nEmail : ${email}\nMessage : ${message}`);
+        closeModal();
+    }
 }
 
 //check if the input is valid

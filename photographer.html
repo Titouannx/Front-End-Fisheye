@@ -49,12 +49,16 @@
 				<form action="javascript:submitForm();" id="contact_form">
 					<div>
 						<label for="prenom">Prénom</label>
+            <p id="prenom-error" class="error"></p>
             <input type="text" id="prenom" name="prenom" required>
             <label for="nom">Nom</label>
+            <p id="nom-error" class="error"></p>
             <input type="text" id="nom" name="nom" required>
             <label for="email">Email</label>
+            <p id="email-error" class="error"></p>
             <input type="email" id="email" name="email" required>
             <label for="message">Votre message</label>
+            <p id="message-error" class="error"></p>
             <textarea id="message" name="message" required></textarea>
 					</div>
           <button class="contact_button" type="submit" onsubmit="">Envoyer</button>
