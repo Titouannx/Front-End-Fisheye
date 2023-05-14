@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 async function getPhotographers() {
     // fetch data/photographers.json in a photographers variable
     let photographers = await fetch("data/photographers.json")
@@ -37,6 +39,7 @@ async function getPhotographerMedia(id) {
     return photographerMedia;
 }
 
+// displays the media on the photographer's page
 async function displayData(medias) {
     const photographerPictures = document.createElement("section");
     photographerPictures.setAttribute("class", "photographer-pictures");
@@ -50,6 +53,7 @@ async function displayData(medias) {
     });
 }
 
+// initializes the photographer's page by fetching the photographer and their media, and displaying all the info
 async function init() {
     const id = getId();
     const photographer = await getPhotographer(id);
@@ -60,10 +64,12 @@ async function init() {
     gestionLikes(photographer.media);
     gestionLightbox(photographer.media);
     gestionKeyboardNavigation();
+    gestionKeyboardNavigationModal();
 }
 
 init();
 
+// manages the likes for each media and updates the total number of likes for the photographer
 function gestionLikes(medias) {
   const mediaList = document.querySelectorAll(".media");
   let totalLikesCount = getTotalLikes(medias);
@@ -88,9 +94,10 @@ function gestionLikes(medias) {
         const photographerLikes = document.querySelector(".photographer-price-and-likes .photographer-price-and-likes-left p");
         photographerLikes.setAttribute("aria-label", `Nombre de likes ${totalLikesCount}`);
         photographerLikes.textContent = `${totalLikesCount} likes`;
-      };
+      }
     });
     
+    //on click on heart icon increase likes count
     heartIcon.addEventListener("mousedown", () => {
       let currentLikesCount = parseInt(likesCount.innerText);
       if (heartIcon.classList.contains("liked")) {
@@ -109,6 +116,7 @@ function gestionLikes(medias) {
   });
 }
 
+// display information about the given photographer, including their name, location, tagline, and portrait image
 function displayPhotographerInfos(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
     const photographerInfos = document.createElement("div");
@@ -139,6 +147,7 @@ function displayPhotographerInfos(photographer) {
     modalHeader.insertBefore(modalTitle, modalHeader.firstChild);
 }
 
+// display the price and number of likes for the given photographer
 function displayPriceAndLikes(photographer) {
     const photographerPriceAndLikes = document.createElement("div");
     photographerPriceAndLikes.setAttribute("class", "photographer-price-and-likes");
@@ -167,6 +176,7 @@ function displayPriceAndLikes(photographer) {
     photographerPriceAndLikesRight.appendChild(photographerPrice);
 }
 
+// display the total of likes for the given photographer
 function getTotalLikes(media) {
     let totalLikes = 0;
     media.forEach((media) => {
@@ -179,6 +189,7 @@ const button = document.getElementById('sort-by-btn');
 const optionsList = document.getElementById('sort-by-select');
 const options = document.querySelectorAll(".option");
 
+// Add an event listener to the button to toggle the dropdown menu
 button.addEventListener('click', function () {
     optionsList.classList.toggle('open');
     //for each option, add an attribute tabindex to make them focusable
@@ -319,6 +330,7 @@ optionsList.addEventListener("click", async (e) => {
 }
     
 
+// display the lightbox when clicking on a media
   function gestionLightbox(medias) {
     // Select all media elements
     const mediaElements = document.querySelectorAll(".media");
@@ -352,6 +364,7 @@ optionsList.addEventListener("click", async (e) => {
     });
     });
 
+    // Toggles the visibility of video controls based on the source (ligtbox or not)
     function showVideosControls(boolean) {
         const video = lightboxContent.querySelector("video");
         if (boolean) {
@@ -361,6 +374,7 @@ optionsList.addEventListener("click", async (e) => {
         }
       }
 
+    // manage the lightbox's content
     function displayMedia(index) {
         // Set the current media index
         currentMediaIndex = index;
@@ -391,9 +405,12 @@ optionsList.addEventListener("click", async (e) => {
         if(newMedia.tagName === "VIDEO"){
           showVideosControls(true);
         }
-        lightbox.getElementsByTagName("img")[0].focus();
+        else{
+          lightbox.getElementsByTagName("img")[0].focus();
+        }
       }
 
+  // manage the lightbox's buttons
   function gestionBtnLightBox(){
     // Add click event listener to previous button
     prevButton.addEventListener("click", () => {

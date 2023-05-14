@@ -3,7 +3,7 @@
 }
 
 #contact_modal .modal {
-    margin-top: 150px;
+    margin-top: 50px;
     gap: 60px;
 }
 
@@ -54,7 +54,7 @@
 
 #contact_modal #message {
     resize: none;
-    height: 150px;
+    height: 100px;
     width: 100%;
 }
 
