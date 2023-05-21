@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <title>Fisheye - photographe </title>
+  </head>
+  <body>
+    <header>
+      <a href="index.html">
+        <img src="assets/images/logo.png" class="logo" alt="logo de Fisheye"/>
+      </a>
+    </header>
+    <main id="main">
+      <div class="photograph-header">
+        <button class="contact_button" aria-label="Bouton de contact du photographe" onclick="displayModal()">Contactez-moi</button>
+      </div>
+      <div class="sort-by">
+        <label for="sort-by-select">Trier par:</label>
+        <div class="sort-by-dropdown">
+          <button id="sort-by-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="sort-by-select">Sélection
+            <img src="assets/icons/arrow.svg" alt='Flèche menu déroulant "Trier par"' class="icon-arrow-down"/>
+          </button>
+          <ul id="sort-by-select" role="listbox" aria-labelledby="sort-by-select" aria-hidden="true">
+            <li class="option" role="option" data-sort-by="likes">Popularité</li>
+            <li class="option" role="option" data-sort-by="title">Titre</li>
+            <li class="option" role="option" data-sort-by="date">Date</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <div id="lightbox" class="lightbox">
+      <div class="lightbox-content">
+        <span class="close">&times;</span>
+        <div class="media-container"></div>
+        <div class="prev-next-buttons">
+          <button id="prev" class="prev">&lt;</button>
+          <button id="next" class="next">&gt;</button>
+        </div>
+      </div>
+    </div>
+    <div id="contact_modal">
+			<div class="modal">
+				<header class="modal_header">
+          <img src="assets/icons/close.svg" alt="Bouton fermer" onclick="closeModal()" />
+        </header>
+				<form action="javascript:submitForm();" id="contact_form">
+					<div>
+						<label for="prenom">Prénom</label>
+            <p id="prenom-error" class="error"></p>
+            <input type="text" id="prenom" name="prenom" required>
+            <label for="nom">Nom</label>
+            <p id="nom-error" class="error"></p>
+            <input type="text" id="nom" name="nom" required>
+            <label for="email">Email</label>
+            <p id="email-error" class="error"></p>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Votre message</label>
+            <p id="message-error" class="error"></p>
+            <textarea id="message" name="message" required></textarea>
+					</div>
+          <button class="contact_button" type="submit" onsubmit="">Envoyer</button>
+				</form>
+			</div>
+		</div>
+    <script src="/scripts/pages/photographer.js"></script>
+    <script src="/scripts/factories/photographer.js"></script>
+    <script src="/scripts/factories/media.js"></script>
+    <script src="/scripts/utils/contactForm.js"></script>
+  </body>
+</html>

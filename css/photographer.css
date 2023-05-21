@@ -1,0 +1,404 @@
+#contact_modal {
+    display: none;
+}
+
+#contact_modal .modal {
+    margin-top: 50px;
+    gap: 60px;
+}
+
+#contact_modal .modal_header h2 {
+    margin-top: 100px;
+    width: 550px;
+    text-align: left;
+}
+
+.error{
+    color: rgb(200, 15, 15);
+    font-weight: bold;
+}
+
+.photographer-price-and-likes{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #DB8876;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 30px;
+    border-radius: 5px 5px 0 0;
+}
+
+.photographer-price-and-likes p{
+    margin: 0px;
+}
+
+.photographer-price-and-likes .photographer-price-and-likes-left{
+    display: flex;
+}
+
+.photographer-price-and-likes .picture-likes-img {
+    width: 25px;
+    height: 25px;
+    filter: brightness(0%);
+}
+
+#contact_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+#contact_modal #message {
+    resize: none;
+    height: 100px;
+    width: 100%;
+}
+
+.photograph-header {
+    background-color: #FAFAFA;
+    height: 300px;
+    margin: 0 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.photograph-header img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.photograph-header h1 {
+    color: #D3573C;
+    font-size: 64px;
+    line-height: 0px;
+    font-weight: 400;
+}
+
+.photograph-header h2 {
+    color: #901C1C;
+    font-size: 24px;
+}
+
+.contact_button {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+main .photographer-pictures {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 100px;
+    color: #901C1C;
+    font-size: 20px;
+}
+
+main .photographer-pictures .picture .picture-likes-img{
+    width: 30px;
+    height: 30px;
+    margin: 20px 5px;
+}
+
+main .photographer-pictures .video .picture-likes-img{
+    width: 30px;
+    height: 30px;
+    margin: 20px 5px;
+}
+
+main .photographer-pictures .video .overlay-play{
+    width: 150px;
+    height: 150px;
+    padding: 30%;
+    position: absolute;
+}
+
+main .photographer-pictures .picture .leftDesc{
+    display: flex;
+    font-weight: 400;
+}
+
+main .photographer-pictures .picture .rightDesc{
+    display: flex;
+    font-weight: 500;
+}
+
+main .photographer-pictures .video .leftDesc{
+    display: flex;
+    font-weight: 400;
+}
+
+main .photographer-pictures .video .rightDesc{
+    display: flex;
+    font-weight: 500;
+}
+
+main .photographer-pictures .picture img{
+    width: 400px;
+    height: 400px;
+    border-radius: 3%;
+    object-fit: cover;
+}
+
+main .photographer-pictures .video video{
+    width: 400px;
+    height: 400px;
+    border-radius: 3%;
+    object-fit: cover;
+}
+
+main .photographer-pictures .picture .picture-infos{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main .photographer-pictures .video .picture-infos{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.media {
+    position: relative;
+}
+  
+#sort-by-select{
+    z-index: 1;
+}
+  
+.modal {
+    border-radius: 5px;
+    background-color: #DB8876;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px;
+    margin: auto;
+}
+
+.modal header {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.modal header img {
+    cursor: pointer;
+}
+
+.modal header h2 {
+    font-size: 64px;
+    font-weight: normal;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+form label {
+    color: #312E2E;
+    font-size: 36px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: self-start;
+    margin-bottom: 26px;
+}
+
+form input {
+    width: 100%;
+    height: 68px;
+    border: none;
+    border-radius: 5px;
+}
+
+.sort-by{
+    margin-top: 25px;
+    margin-left: 100px;
+    display: flex;
+    gap: 20px;
+}
+
+.sort-by label {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#sort-by-btn {
+  position: relative;
+  background-color: #901C1C;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#sort-by-btn img{
+    filter: invert(100%);
+    width: 20px;
+    padding-left: 10px;
+    position: relative;
+    top: 5px;
+  }
+
+#sort-by-btn .icon-arrow-down {
+    transform: rotate(0deg);
+    padding-left: 10px;
+    padding-right: 0px;
+    position: relative;
+    top: 5px;
+}
+
+#sort-by-btn .icon-arrow-up {
+    transform: rotate(180deg);
+    padding-left: 0px;
+    padding-right: 10px;
+    position: relative;
+    top: 5px;
+}
+
+
+#sort-by-btn:hover {
+    background-color: #b61e1e;
+}
+
+#sort-by-select {
+    margin-top: -1px;
+    margin-left: 161px;
+    position: absolute;
+    width: fit-content;
+    left: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+}
+  
+#sort-by-select.open {
+    max-height: 200px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#sort-by-select li {
+    background-color: #901C1C;
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-bottom: 1px solid white;
+    cursor: pointer;
+}
+
+#sort-by-select li:hover {
+    background-color: #b61e1e;
+}
+
+#sort-by-select li:last-child {
+  border-bottom: none;
+}
+
+.picture-likes-img{
+    cursor: pointer;
+}
+  
+.picture-likes-img.liked {
+    filter:contrast(175%)
+}
+
+/* Style for the lightbox container */
+.lightbox {
+    display: none; /* Hide the lightbox by default */
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+  /* Style for the lightbox content */
+  .lightbox-content {
+    position: relative;
+    margin: auto;
+    width: 80%;
+    max-height: 90%;
+  }
+  
+  /* Style for the close button */
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Style for the media container */
+  .lightbox-content img,video {
+    display: block;
+    height: 800px;
+    margin: 0px auto;
+  }
+
+  /* Style for the previous and next buttons */
+  .prev-next-buttons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .prev-next-buttons button {
+    background-color: transparent;
+    border: none;
+    font-size: 50px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .prev-next-buttons button:hover {
+    color: #ccc;
+  }
+  
