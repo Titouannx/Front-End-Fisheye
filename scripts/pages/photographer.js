@@ -369,8 +369,6 @@ optionsList.addEventListener("click", async (e) => {
         const video = lightboxContent.querySelector("video");
         if (boolean) {
           video.controls = true;
-        } else {
-          video.controls = false;
         }
       }
 
