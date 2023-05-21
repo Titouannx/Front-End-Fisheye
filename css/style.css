@@ -1,85 +1,89 @@
-@import url("photographer.css");
-
-body {
-    font-family: "DM Sans", sans-serif;
-    margin: 0;
+main{
+    margin: 0% 5%;
 }
 
-
-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 90px;
-}
-
-h1 {
-    color: #901C1C;
-    margin-right: 100px;
-}
-
-h2{
-    font-weight: 400;
-    font-size: 36px;
-}
-
+/* Centre le logo */
 .logo {
-    height: 50px;
-    margin-left: 100px;
-}
-
-.photographer_section {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 70px;
-    margin-top: 100px;
-}
-
-.photographer_section article {
-    justify-self: center;
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.photographer_section article a {
-    text-decoration: none;
-    text-align: center;
-}
-
-
-.photographer_section article h2 {
-    color: #D3573C;
-    font-size: 36px;
-    line-height: 0px;
-}
-
-.photographer_section article img {
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.photographer_section article p {
-    line-height: 0px;
-    font-weight: 600;
+    margin-top: 50px;
     margin-bottom: 20px;
-}
-
-.photographer_section article #localisation {
-    color: #901C1C;
-    font-size: 13px;
-}
-
-.photographer_section article #tagline{
-    color: black;
-    font-size: 10px;
-}
-
-.photographer_section article #price{
-    color: #757575;
-    font-size: 9px;
-}
+  }
+  
+  .logo img {
+    max-width: 200px;
+  }
+  
+  /* Barre de recherche */
+  .search-bar {
+    background-color: #E7E7E7;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  #search-input {
+    flex-grow: 1;
+    background-color: #E7E7E7;
+    border: none;
+  }
+  
+  /* Dropdown menus */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .dropdown .dropdown-toggle {
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-weight: bold;
+  }
+  
+  .dropdown .dropdown-menu {
+    min-width: 200px;
+    border: none;
+  }
+  
+  .dropdown .dropdown-menu input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .dropdown .dropdown-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown .dropdown-list li {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown .dropdown-list li:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown #ingredients-dropdown {
+    background-color: #3282F7;
+  }
+  
+  .dropdown #appliances-dropdown{
+    background-color: #68D9A4;
+  }
+  
+  .dropdown #utensils-dropdown{
+    background-color: #ED6454;
+  }
+  
+  
+  /* Cartes des recettes */
+  .recipes {
+    margin-top: 20px;
+  }

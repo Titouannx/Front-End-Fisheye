@@ -1,23 +1,78 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
+    <title>Les petits plats</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="assets/bootstrap.css">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <title>Fisheye</title>
   </head>
   <body>
     <header>
+      <!-- Logo -->
+      <div class="logo">
         <a href="index.html">
-          <img src="assets/images/logo.png" class="logo" alt="logo de Fisheye"/>
+          <img src="assets/images/logo.png" alt="Les Petits Plats">
         </a>
-        <h1>Nos photographes</h1>
+      </div>
     </header>
-    <main id="main">
-        <div class="photographer_section"></div>
+
+    <main>
+      <div class="search-bar">
+        <!-- Barre de recherche -->
+        <input type="text" id="search-input" class="form-control" placeholder="Rechercher une recette...">
+        <button id="search-button" class="btn"><img src="assets/images/search.png"></button>
+      </div>
+  
+      <div class="tags">
+        <div id="selected-tags">
+          <!-- Tags sélectionnés -->
+        </div>
+      
+        <!-- Dropdown menus -->
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="ingredients-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Ingrédients
+          </button>
+          <div class="dropdown-menu" aria-labelledby="ingredients-dropdown">
+            <!-- Options des ingrédients -->
+            <input type="text" id="ingredients-search" class="form-control search-input" placeholder="Rechercher un ingrédient...">
+            <ul id="ingredients-list" class="dropdown-list"></ul>
+          </div>
+        </div>
+        
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="appliances-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Appareils
+          </button>
+          <div class="dropdown-menu" aria-labelledby="appliances-dropdown">
+            <!-- Options des appareils -->
+            <input type="text" id="appliances-search" class="form-control search-input" placeholder="Rechercher un appareil...">
+            <ul id="appliances-list" class="dropdown-list"></ul>
+          </div>
+        </div>
+        
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="utensils-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Ustensiles
+          </button>
+          <div class="dropdown-menu" aria-labelledby="utensils-dropdown">
+            <!-- Options des ustensiles -->
+            <input type="text" id="utensils-search" class="form-control search-input" placeholder="Rechercher un ustensile...">
+            <ul id="utensils-list" class="dropdown-list"></ul>
+          </div>
+        </div>        
+      </div>      
+  
+      <div class="recipes">
+        <!-- Affichage des recettes -->
+        <div id="recipes-list"></div>
+      </div>
     </main>
-    <script src="scripts/factories/photographer.js"></script>
-    <script src="scripts/pages/index.js"></script>
+
+    <script src="assets/bootstrap.js"></script>
+    <script src="js/recipes.js"></script>
+    <script src="js/index.js"></script>
   </body>
 </html>
